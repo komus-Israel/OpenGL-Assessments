@@ -26,6 +26,14 @@ class GraphicsPipeline {
         "}\0";
     ;
 
+    const char *fragmentShaderForYellowSource = "#version 330 core\n"
+        "out vec4 FragColor;\n"
+        "void main()\n"
+        "{\n"
+        "   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+        "}\0";
+    ;
+
 private:
 
     unsigned int compileShader(const char *shaderSource, unsigned int shaderType) {
