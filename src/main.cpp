@@ -48,6 +48,7 @@ public:
 
         pipeline.compileVertexShader();     //  compile vertex shader
         pipeline.compileFragmentShader();   //  compile fragment shader
+        
         pipeline.shaderPrograms[0] = pipeline.createShaderProgram(       //  create first shader program and link shaders
             pipeline.vertexShader,
             pipeline.fragmentShaders[0] //  links the first fragment shader
