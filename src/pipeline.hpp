@@ -221,40 +221,43 @@ public:
     //  To use the compiled shaders, they need to be linked to a shader program object
     //  Afterwards, the shader program is activated when rendering objects
     //  When linking the shaders into a program, it links the output of each shader to the inputs of the next shader
-    void createShaderProgram(unsigned int vtxShader, unsigned int fragShader) {
+    unsigned int createShaderProgram(unsigned int vtxShader, unsigned int fragShader) {
 
         //  create shader program
-        shaderProgram = glCreateProgram();
+        unsigned int program = glCreateProgram();
 
         //  attach the compiled shaders to the program
-        glAttachShader(shaderProgram, vtxShader);
-        glAttachShader(shaderProgram, fragShader);
+        glAttachShader(program, vtxShader);
+        glAttachShader(program, fragShader);
         
         //  link the shaders via the shaderProgram
-        glLinkProgram(shaderProgram);
+        glLinkProgram(program);
 
         int success;
         char infoLog[512];
-        glGetProgramiv(shaderProgram, GL_COMPILE_STATUS, &success);
+        glGetProgramiv(program, GL_COMPILE_STATUS, &success);
     
         if (!success) {
-            glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+            glGetProgramInfoLog(program, 512, NULL, infoLog);
             std::cout << infoLog << std::endl;
             throw std::runtime_error("Shader Program Linking Failed!");
     
         }
 
+        return program;
+
     }
 
     //  Activate shader program
-    void useProgram() {
-        glUseProgram(shaderProgram);
+    void useProgram(uint program) {
+        glUseProgram(program);
     }
 
     //  Delete shader objects once linked into program object as they are no longer needed
     void deleteShaders() {
         glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
+        glDeleteShader(fragmentShaders[0]);
+        glDeleteShader(fragmentShaders[1]);
     }
 
     void drawTriangle() {
