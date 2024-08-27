@@ -26,7 +26,7 @@ class GraphicsPipeline {
         "}\0";
     ;
 
-    const char *fragmentShaderForYellowSource = "#version 330 core\n"
+    const char *fragmentShaderSourceForYellow = "#version 330 core\n"
         "out vec4 FragColor;\n"
         "void main()\n"
         "{\n"
@@ -212,7 +212,8 @@ public:
     void compileFragmentShader() {
 
        //   compile fragment shader
-       fragmentShader = compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+       fragmentShaders[0] = compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+       fragmentShaders[1] = compileShader(fragmentShaderSourceForYellow, GL_FRAGMENT_SHADER);
 
     }
 
