@@ -55,7 +55,7 @@ public:
         pipeline.deleteShaders();  
         pipeline.generateVAO();
         pipeline.handleVBO();
-        pipeline.handleEBO();
+        // pipeline.handleEBO();
         pipeline.setVertexAttribute();
         
         
