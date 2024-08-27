@@ -28,7 +28,7 @@ class GraphicsPipeline {
 
 private:
 
-     unsigned int compileShader(const char *shaderSource, unsigned int shaderType) {
+    unsigned int compileShader(const char *shaderSource, unsigned int shaderType) {
        
         //  In order for opengl to use the shader, it has to dynamically compile it at run-time from its
         //  source code
@@ -74,25 +74,28 @@ public:
 
     //  vertices data for the triangle
     //  Vertex data is a collection of vertices
-    // float vertices[9] = {
-    //     -0.5f, -0.5f, 0.0f,
-    //     0.5f, -0.5f, 0.0f,
-    //     0.0f, 0.5f, 0.0f
-    // };
+    float vertices[18] = {
+        -0.8f, -0.5f, 0.0f,
+        -0.2f, -0.5f, 0.0f,
+        -0.5f, 0.5f, 0.0f,
+        0.2f, -0.5f, 0.0f,
+        0.8f, -0.5f, 0.0f,
+        0.5f, 0.5f, 0.0f
+    };
 
     //  Unique Vertices for rectangle (to be used for EBO)
-    float vertices[12] = {
-        0.5f, 0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f, 0.5f, 0.0f
-    };
+    // float vertices[12] = {
+    //     0.5f, 0.5f, 0.0f,
+    //     0.5f, -0.5f, 0.0f,
+    //     -0.5f, -0.5f, 0.0f,
+    //     -0.5f, 0.5f, 0.0f
+    // };
 
     //  note that indices starts from 0 (to be used for EBO)
-    unsigned int indices[6] = {
-        0, 1 , 3,
-        1, 2, 3
-    };
+    // unsigned int indices[6] = {
+    //     0, 1 , 3,
+    //     1, 2, 3
+    // };
 
     void bindVAO() {
         glBindVertexArray(VAO);
@@ -120,18 +123,18 @@ public:
 
     }
 
-    void handleEBO() {
+    // void handleEBO() {
 
-        //  Generate buffer with an ID
-        glGenBuffers(1, &EBO);
+    //     //  Generate buffer with an ID
+    //     glGenBuffers(1, &EBO);
 
-        //  Bind EBO
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    //     //  Bind EBO
+    //     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-        //  copy indices into the buffer
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    //     //  copy indices into the buffer
+    //     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    }
+    // }
 
     //  Instruct OPENGL on how it should interpret the vertex data (per vertex attribute)
     //  using `glVertexAttribPointer`
@@ -217,7 +220,9 @@ public:
         glDeleteShader(fragmentShader);
     }
 
-    void drawTriangle(uint32_t numOfVertices) {
+    void drawTriangle() {
+        glDrawArrays(GL_TRIANGLES, 0, sizeof(vertices) / 3); // for vertices
+
         // glDrawArrays(GL_TRIANGLES, 0, numOfVertices); // for vertices
 
         //  For EBO
@@ -225,7 +230,7 @@ public:
         //  Second: the total number of vertices, since 6 indices were to be drawn
         //  Third: The type of the indices
         //  Fourth: Offset in the EBO
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
 
