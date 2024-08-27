@@ -53,8 +53,8 @@ public:
             pipeline.fragmentShader
         );
         pipeline.deleteShaders();  
-        pipeline.generateVAO();
-        pipeline.handleVBO();
+        pipeline.generateVAO(1);
+        pipeline.handleVBO(1);
         // pipeline.handleEBO();
         pipeline.setVertexAttribute();
         

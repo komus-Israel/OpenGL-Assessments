@@ -99,29 +99,33 @@ public:
     //     1, 2, 3
     // };
 
-    void bindVAO() {
-        glBindVertexArray(VAO);
+    void bindVAO(unsigned int _VAO) {
+        glBindVertexArray(VAO_1);
     }
 
     //  Vertex buffer objects
     //  Memory handler to store the vertex data on the GPU
     //  VBO can store a large numer of vetices in the GPU's memory
-    void handleVBO() {
+    void handleVBO(unsigned int bufferId) {
 
-        bindVAO();
+        if (bufferId == 1) {
 
-        //  Generate a buffer with an ID
-        glGenBuffers(1, &VBO);
+            bindVAO(VAO_1);
 
-        // std::cout << "VBO: " << VBO << std::endl;
+            //  Generate a buffer with an ID
+            glGenBuffers(1, &VBO_1);
 
-        //  Bind buffer to the `GL_ARRAY_BUFFER`
-        //  Buffer type for VBO is `GL_ARRAY_BUFFER`
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            //  Bind buffer to the `GL_ARRAY_BUFFER`
+            //  Buffer type for VBO is `GL_ARRAY_BUFFER`
+            glBindBuffer(GL_ARRAY_BUFFER, VBO_1);
 
-        //  copy the defined vertex into memory of the buffer currently binded, in 
-        //  this case, the VBO
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+            //  copy the defined vertex into memory of the buffer currently binded, in 
+            //  this case, the VBO
+            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        }
+
+       
 
     }
 
@@ -149,10 +153,16 @@ public:
     }
 
     //  To use a VAO, bind it using `glBindVertexArray`
-    void generateVAO() {
+    void generateVAO(unsigned int objectId) {
 
-        //  Generate VAO
-        glGenVertexArrays(1, &VAO);
+        //  Generate VAO with an Id
+        // std::cout << "VAO: " << _VAO << std::endl; 
+        // std::cout << "VAO: " << VAO_1 << std::endl; 
+
+        if (objectId == 1)
+            glGenVertexArrays(objectId, &VAO_1);
+        else 
+            glGenVertexArrays(objectId, &VAO_2);
  
     }
 
