@@ -48,10 +48,16 @@ public:
 
         pipeline.compileVertexShader();     //  compile vertex shader
         pipeline.compileFragmentShader();   //  compile fragment shader
-        pipeline.createShaderProgram(       //  create program and link shaders
+        pipeline.shaderPrograms[0] = pipeline.createShaderProgram(       //  create first shader program and link shaders
             pipeline.vertexShader,
-            pipeline.fragmentShader
+            pipeline.fragmentShaders[0] //  links the first fragment shader
         );
+
+        pipeline.shaderPrograms[1] = pipeline.createShaderProgram(       //  create second program and link shaders
+            pipeline.vertexShader,
+            pipeline.fragmentShaders[1] //  links the second fragment shader
+        );
+
         pipeline.deleteShaders();  
         pipeline.generateVAOs();    //  generate VAOs
         pipeline.generateVBOs();    //  generate VBOs
