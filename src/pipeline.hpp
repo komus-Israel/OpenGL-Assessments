@@ -66,8 +66,8 @@ private:
 public:
 
     unsigned int vertexShader;
-    unsigned int fragmentShader;
-    unsigned int shaderProgram;
+    unsigned int fragmentShaders[2];
+    unsigned int shaderPrograms[2];
     unsigned int VBOs[0];
     unsigned int VAOs[2];
     unsigned int EBO;
