@@ -68,8 +68,10 @@ public:
     unsigned int vertexShader;
     unsigned int fragmentShader;
     unsigned int shaderProgram;
-    unsigned int VBO;
-    unsigned int VAO;
+    unsigned int VBO_1;
+    unsigned int VBO_2;
+    unsigned int VAO_1;
+    unsigned int VAO_2;
     unsigned int EBO;
 
     //  vertices data for the triangle
