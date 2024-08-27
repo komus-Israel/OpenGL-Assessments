@@ -68,18 +68,19 @@ public:
     unsigned int vertexShader;
     unsigned int fragmentShader;
     unsigned int shaderProgram;
-    unsigned int VBO_1;
-    unsigned int VBO_2;
-    unsigned int VAO_1;
-    unsigned int VAO_2;
+    unsigned int VBOs[0];
+    unsigned int VAOs[2];
     unsigned int EBO;
 
     //  vertices data for the triangle
     //  Vertex data is a collection of vertices
-    float vertices[18] = {
+    float vertices1[9] = {
         -0.8f, -0.5f, 0.0f,
         -0.2f, -0.5f, 0.0f,
-        -0.5f, 0.5f, 0.0f,
+        -0.5f, 0.5f, 0.0f
+    };
+
+    float vertices2[9] = {
         0.2f, -0.5f, 0.0f,
         0.8f, -0.5f, 0.0f,
         0.5f, 0.5f, 0.0f
@@ -99,8 +100,12 @@ public:
     //     1, 2, 3
     // };
 
-    void bindVAO(unsigned int _VAO) {
-        glBindVertexArray(VAO_1);
+    void bindVAO(unsigned int objectId) {
+
+        if (objectId == 1) 
+            glBindVertexArray(VAOs[0]);
+        else 
+            glBindVertexArray(VAOs[1]);
     }
 
     //  Vertex buffer objects
@@ -110,18 +115,27 @@ public:
 
         if (bufferId == 1) {
 
-            bindVAO(VAO_1);
-
-            //  Generate a buffer with an ID
-            glGenBuffers(1, &VBO_1);
+            bindVAO(VAOs[0]);
 
             //  Bind buffer to the `GL_ARRAY_BUFFER`
             //  Buffer type for VBO is `GL_ARRAY_BUFFER`
-            glBindBuffer(GL_ARRAY_BUFFER, VBO_1);
+            glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
 
             //  copy the defined vertex into memory of the buffer currently binded, in 
             //  this case, the VBO
-            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);
+
+        } else {
+
+            bindVAO(VAOs[1]);
+
+            //  Bind buffer to the `GL_ARRAY_BUFFER`
+            //  Buffer type for VBO is `GL_ARRAY_BUFFER`
+            glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+
+            //  copy the defined vertex into memory of the buffer currently binded, in 
+            //  this case, the VBO
+            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
 
         }
 
@@ -153,17 +167,19 @@ public:
     }
 
     //  To use a VAO, bind it using `glBindVertexArray`
-    void generateVAO(unsigned int objectId) {
+    void generateVAOs() {
 
         //  Generate VAO with an Id
         // std::cout << "VAO: " << _VAO << std::endl; 
         // std::cout << "VAO: " << VAO_1 << std::endl; 
 
-        if (objectId == 1)
-            glGenVertexArrays(objectId, &VAO_1);
-        else 
-            glGenVertexArrays(objectId, &VAO_2);
+        glGenVertexArrays(2, VAOs); //  generate multiple VAOs
  
+    }
+
+    //  Generate VBOs 
+    void generateVBOs() {
+        glGenBuffers(2, VBOs);
     }
 
 
@@ -233,7 +249,7 @@ public:
     }
 
     void drawTriangle() {
-        glDrawArrays(GL_TRIANGLES, 0, sizeof(vertices) / 3); // for vertices
+        glDrawArrays(GL_TRIANGLES, 0, 3); // for vertices
 
         // glDrawArrays(GL_TRIANGLES, 0, numOfVertices); // for vertices
 
