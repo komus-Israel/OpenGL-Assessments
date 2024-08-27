@@ -54,12 +54,17 @@ public:
             glClear(GL_COLOR_BUFFER_BIT);
 
             //  draw triangle
-            pipeline.useProgram();              //  activate shader program
+            pipeline.useProgram(
+                pipeline.shaderPrograms[0]
+            );                                   //  activate and use the first shader program
             
             pipeline.bindVAO(1);                 //  Bind the VAO before drawing the triangle
-            pipeline.drawTriangle();          //  draw triangle
+            pipeline.drawTriangle();            //  draw triangle
             // glBindVertexArray(0);
 
+            pipeline.useProgram(
+                pipeline.shaderPrograms[1]
+            );                                   //  activate and use the second shader program
             pipeline.bindVAO(2);                 //  Bind the VAO before drawing the triangle
             pipeline.drawTriangle(); 
 
