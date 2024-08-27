@@ -211,7 +211,7 @@ public:
     //  The strenth of each component is a value between 0.0 and 1.0
     void compileFragmentShader() {
 
-       //   compile fragment shader
+       //   compile fragment shaders
        fragmentShaders[0] = compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
        fragmentShaders[1] = compileShader(fragmentShaderSourceForYellow, GL_FRAGMENT_SHADER);
 
