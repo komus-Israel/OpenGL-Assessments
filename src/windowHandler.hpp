@@ -56,8 +56,8 @@ public:
             //  draw triangle
             pipeline.useProgram();              //  activate shader program
             pipeline.bindVAO();                 //  Bind the VAO before drawing the triangle
-            pipeline.drawTriangle(3);          //  draw triangle
-            glBindVertexArray(0);
+            pipeline.drawTriangle();          //  draw triangle
+            // glBindVertexArray(0);
 
             //  swap the color bufer
             glfwSwapBuffers(window);
